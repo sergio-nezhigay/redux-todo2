@@ -2,12 +2,14 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { todoToggled } from "./todosSlice";
+import { ITodoListItem } from "./interface";
 import "./TodoListItem.css";
 
-const TodoListItem = ({ id, taskText, completed }) => {
+const TodoListItem: React.FC<ITodoListItem> = (props) => {
+  const { id, taskText, completed } = props;
   const dispatch = useDispatch();
 
-  const handleVote = (id) => {
+  const handleVote = (id: string) => {
     dispatch(todoToggled(id));
   };
 

@@ -1,5 +1,3 @@
-import React from "react";
-
 import TodoList from "./features/tasks/TodoList";
 import InputBlock from "./features/InputBlock/InputBlock";
 import "./App.css";

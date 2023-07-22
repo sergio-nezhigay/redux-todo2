@@ -7,10 +7,11 @@ import "./InputBlock.css";
 function InputBlock() {
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(todoAdded(e.target.item.value));
-    e.target.reset();
+    const inputElement = e.target as HTMLFormElement;
+    dispatch(todoAdded(inputElement.item.value));
+    inputElement.reset();
   };
 
   return (

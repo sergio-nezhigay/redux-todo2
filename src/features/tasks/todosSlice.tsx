@@ -1,6 +1,7 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
+import { ITodo, ITodosState } from "./interface";
 
-const initialState = {
+const initialState: ITodosState = {
   todos: [
     {
       id: "1",
@@ -21,10 +22,10 @@ export const todosSlice = createSlice({
 
   reducers: {
     todoAdded: {
-      reducer(state, action) {
+      reducer(state, action: PayloadAction<ITodo>) {
         state.todos.push(action.payload);
       },
-      prepare(taskText) {
+      prepare(taskText: string) {
         return {
           payload: {
             id: nanoid(),
@@ -34,9 +35,11 @@ export const todosSlice = createSlice({
         };
       },
     },
-    todoToggled(state, action) {
+    todoToggled(state, action: PayloadAction<string>) {
       const todo = state.todos.find((todo) => todo.id === action.payload);
-      todo.completed = !todo.completed;
+      if (todo) {
+        todo.completed = !todo.completed;
+      }
     },
   },
 });
@@ -45,4 +48,4 @@ export const { todoAdded, todoToggled } = todosSlice.actions;
 
 export const todosReducer = todosSlice.reducer;
 
-export const selectTodos = (state) => state.todos;
+export const selectTodos = (state: { todos: ITodosState }) => state.todos;
